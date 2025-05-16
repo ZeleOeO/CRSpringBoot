@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -22,8 +23,8 @@ public class Student {
     private String password;
 
     @ManyToMany(mappedBy = "expectedStudents")
-    private HashSet<Course> coursesEnrolled;
+    private Set<Course> coursesEnrolled = new HashSet<>();
 
     @ManyToMany(mappedBy = "enrolledStudents")
-    private HashSet<Course> coursesExpectedToBeEnrolled;
+    private Set<Course> coursesExpectedToBeEnrolled = new HashSet<>();
 }
