@@ -29,4 +29,14 @@ public class StudentController {
     public ResponseEntity<StudentViewDTO> addStudent(StudentCreateRequest createRequest) {
         return studentService.createStudent(createRequest);
     }
+
+    @DeleteMapping("/{id}-delete")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        return studentService.deleteStudent(id);
+    }
+
+    @PutMapping("{id}-add-password")
+    public ResponseEntity<StudentViewDTO> addStudentPassword(@PathVariable Long id, StudentAddPasswordRequest createRequest) {
+        return studentService.addPassword(createRequest);
+    }
 }
