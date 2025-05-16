@@ -1,5 +1,6 @@
 package com.zele.crspringboot.service;
 
+import com.zele.crspringboot.dtos.student.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.student.StudentAddPasswordRequest;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
 import com.zele.crspringboot.dtos.student.StudentViewDTO;
@@ -55,6 +56,20 @@ public class StudentService {
         if (user.getPassword() != null) throw new EntityAlreadyExistsException("Password already exists \nTry Reset-Password");
         if (!addPasswordRequest.getPassword().equals(addPasswordRequest.getConfirmPassword())) throw new EntityNotAuthorizedException("Passwords do not match");
         user.setPassword(addPasswordRequest.getPassword());
+        studentRepository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
+    }
+
+    public ResponseEntity<StudentViewDTO> resetPassword(Long Id, ResetPasswordRequest resetPasswordRequest) {
+        var user = studentRepository.findById(Id).orElse(null);
+        if (user == null) throw new EntityNotFoundException("Student not found");
+        if (!resetPasswordRequest.validate()) throw new EntityNotAuthorizedException("Passwords do not match");
+        if (!resetPasswordRequest.getOldPassword().equals(user.getPassword())) throw new EntityNotAuthorizedException("Passwords do not match");
+        if (user.getPassword() == null) addPassword(
+                new StudentAddPasswordRequest(resetPasswordRequest.getNewPassword(), resetPasswordRequest.getConfirmNewPassword()),
+                user.getId()
+        );
+        user.setPassword(resetPasswordRequest.getNewPassword());
         studentRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
     }
