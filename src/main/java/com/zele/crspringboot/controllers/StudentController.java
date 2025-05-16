@@ -1,5 +1,6 @@
 package com.zele.crspringboot.controllers;
 
+import com.zele.crspringboot.dtos.student.StudentAddPasswordRequest;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
 import com.zele.crspringboot.dtos.student.StudentViewDTO;
 import com.zele.crspringboot.service.StudentService;
@@ -20,13 +21,14 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/all/{id}")
     public ResponseEntity<StudentViewDTO> getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id);
     }
 
     @PostMapping("/new")
-    public ResponseEntity<StudentViewDTO> addStudent(StudentCreateRequest createRequest) {
+    public ResponseEntity<StudentViewDTO> addStudent(
+            @RequestBody StudentCreateRequest createRequest) {
         return studentService.createStudent(createRequest);
     }
 
@@ -35,8 +37,10 @@ public class StudentController {
         return studentService.deleteStudent(id);
     }
 
-    @PutMapping("{id}-add-password")
-    public ResponseEntity<StudentViewDTO> addStudentPassword(@PathVariable Long id, StudentAddPasswordRequest createRequest) {
-        return studentService.addPassword(createRequest);
+    @PutMapping("/{id}-add-password")
+    public ResponseEntity<StudentViewDTO> addStudentPassword(
+            @PathVariable Long id,
+            @RequestBody StudentAddPasswordRequest createRequest) {
+        return studentService.addPassword(createRequest, id);
     }
 }
