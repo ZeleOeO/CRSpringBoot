@@ -1,5 +1,6 @@
 package com.zele.crspringboot.controllers;
 
+import com.zele.crspringboot.dtos.student.StudentCreateRequest;
 import com.zele.crspringboot.dtos.student.StudentViewDTO;
 import com.zele.crspringboot.service.StudentService;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,8 @@ public class StudentController {
         return studentService.getStudentById(id);
     }
 
-    @PostMapping()
-    public ResponseEntity<StudentViewDTO> addStudent(StudentViewDTO student) {}
+    @PostMapping("/new")
+    public ResponseEntity<StudentViewDTO> addStudent(StudentCreateRequest createRequest) {
+        return studentService.createStudent(createRequest);
+    }
 }
