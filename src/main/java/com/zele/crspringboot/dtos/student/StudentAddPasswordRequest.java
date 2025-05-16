@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StudentAddPasswordRequest {
-    private Long id;
     private String password;
     private String confirmPassword;
 }
