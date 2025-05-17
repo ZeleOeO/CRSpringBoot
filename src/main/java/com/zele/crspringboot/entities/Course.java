@@ -40,4 +40,8 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+    
+    public void setCourseName() {
+        this.courseName = this.courseName + String.valueOf(level).charAt(0) + "0" + String.valueOf(this.id);;
+    }
 }
