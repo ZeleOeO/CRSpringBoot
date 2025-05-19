@@ -4,7 +4,7 @@ import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
 import com.zele.crspringboot.dtos.course.CourseViewDTO;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
-import com.zele.crspringboot.dtos.student.StudentViewDTO;
+import com.zele.crspringboot.dtos.student.UserViewDTO;
 import com.zele.crspringboot.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +19,17 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/all")
-    public List<StudentViewDTO> getAllStudents() {
+    public List<UserViewDTO> getAllStudents() {
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentViewDTO> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<UserViewDTO> getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id);
     }
 
     @PostMapping("/new")
-    public ResponseEntity<StudentViewDTO> addStudent(
+    public ResponseEntity<UserViewDTO> addStudent(
             @RequestBody StudentCreateRequest createRequest) {
         return studentService.studentSignUp(createRequest);
     }
@@ -40,14 +40,14 @@ public class StudentController {
     }
 
     @PutMapping("/{id}-add-password")
-    public ResponseEntity<StudentViewDTO> addStudentPassword(
+    public ResponseEntity<UserViewDTO> addStudentPassword(
             @PathVariable Long id,
             @RequestBody AddPasswordRequest createRequest) {
         return studentService.addPassword(createRequest, id);
     }
 
     @PutMapping("/{id}-reset-password")
-    public ResponseEntity<StudentViewDTO> resetStudentPassword(
+    public ResponseEntity<UserViewDTO> resetStudentPassword(
             @PathVariable Long id,
             @RequestBody ResetPasswordRequest createRequest
     ) {

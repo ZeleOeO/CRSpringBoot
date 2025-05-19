@@ -4,7 +4,7 @@ import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
 import com.zele.crspringboot.dtos.course.CourseViewDTO;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
-import com.zele.crspringboot.dtos.student.StudentViewDTO;
+import com.zele.crspringboot.dtos.student.UserViewDTO;
 import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
 import com.zele.crspringboot.exceptions.EntityNotAuthorizedException;
@@ -28,14 +28,14 @@ public class StudentService {
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
 
-    public List<StudentViewDTO> getAllStudents() {
+    public List<UserViewDTO> getAllStudents() {
         return studentRepository.findAll()
                 .stream()
                 .map(studentMapper::toStudentViewDTO)
                 .toList();
     }
 
-    public ResponseEntity<StudentViewDTO> getStudentById(Long id) {
+    public ResponseEntity<UserViewDTO> getStudentById(Long id) {
         var user = studentRepository.findById(id).orElse(null);
         if (user == null) throw new EntityNotFoundException("Student with id " + id + " not found");
         return ResponseEntity.status(HttpStatus.OK).body(studentMapper.toStudentViewDTO(user));
@@ -48,14 +48,14 @@ public class StudentService {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    public ResponseEntity<StudentViewDTO> studentSignUp(StudentCreateRequest studentCreateRequest) {
+    public ResponseEntity<UserViewDTO> studentSignUp(StudentCreateRequest studentCreateRequest) {
         Student student = studentMapper.createRequestToStudent(studentCreateRequest);
         if (studentRepository.findByEmail(student.getEmail()) != null) throw new EntityAlreadyExistsException("Student already exists");
         studentRepository.save(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(student));
     }
 
-    public ResponseEntity<StudentViewDTO> addPassword(AddPasswordRequest addPasswordRequest, Long Id) {
+    public ResponseEntity<UserViewDTO> addPassword(AddPasswordRequest addPasswordRequest, Long Id) {
         var user = studentRepository.findById(Id).orElse(null);
         if (user == null) throw new EntityNotFoundException("Student not found");
         if (user.getPassword() != null) throw new EntityAlreadyExistsException("Password already exists \nTry Reset-Password");
@@ -65,7 +65,7 @@ public class StudentService {
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
     }
 
-    public ResponseEntity<StudentViewDTO> resetPassword(Long Id, ResetPasswordRequest resetPasswordRequest) {
+    public ResponseEntity<UserViewDTO> resetPassword(Long Id, ResetPasswordRequest resetPasswordRequest) {
         var user = studentRepository.findById(Id).orElse(null);
         if (user == null) throw new EntityNotFoundException("Student not found");
         if (user.getPassword() == null) {

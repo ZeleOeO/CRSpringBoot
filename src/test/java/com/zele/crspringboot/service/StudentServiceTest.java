@@ -41,12 +41,12 @@ class StudentServiceTest {
     void testGetAllStudents() {
         Student student = new Student();
         student.setId(1L);
-        StudentViewDTO dto = new StudentViewDTO();
+        UserViewDTO dto = new UserViewDTO();
 
         when(studentRepository.findAll()).thenReturn(List.of(student));
         when(studentMapper.toStudentViewDTO(student)).thenReturn(dto);
 
-        List<StudentViewDTO> result = studentService.getAllStudents();
+        List<UserViewDTO> result = studentService.getAllStudents();
         assertEquals(1, result.size());
     }
 
@@ -54,7 +54,7 @@ class StudentServiceTest {
     void testGetStudentById_Success() {
         Student student = new Student();
         student.setId(1L);
-        StudentViewDTO dto = new StudentViewDTO();
+        UserViewDTO dto = new UserViewDTO();
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
         when(studentMapper.toStudentViewDTO(student)).thenReturn(dto);
@@ -95,7 +95,7 @@ class StudentServiceTest {
 
         when(studentMapper.createRequestToStudent(request)).thenReturn(student);
         when(studentRepository.findByEmail("test@test.com")).thenReturn(null);
-        when(studentMapper.toStudentViewDTO(student)).thenReturn(new StudentViewDTO());
+        when(studentMapper.toStudentViewDTO(student)).thenReturn(new UserViewDTO());
 
         var response = studentService.studentSignUp(request);
         assertEquals(201, response.getStatusCodeValue());
@@ -122,7 +122,7 @@ class StudentServiceTest {
         AddPasswordRequest request = new AddPasswordRequest("pass123", "pass123");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
-        when(studentMapper.toStudentViewDTO(student)).thenReturn(new StudentViewDTO());
+        when(studentMapper.toStudentViewDTO(student)).thenReturn(new UserViewDTO());
 
         var response = studentService.addPassword(request, 1L);
         assertEquals(201, response.getStatusCodeValue());
@@ -167,7 +167,7 @@ class StudentServiceTest {
         request.setConfirmNewPassword("newPass");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
-        when(studentMapper.toStudentViewDTO(student)).thenReturn(new StudentViewDTO());
+        when(studentMapper.toStudentViewDTO(student)).thenReturn(new UserViewDTO());
 
         var response = studentService.resetPassword(1L, request);
         assertEquals(201, response.getStatusCodeValue());
