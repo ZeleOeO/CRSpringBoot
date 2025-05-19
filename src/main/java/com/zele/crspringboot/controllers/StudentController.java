@@ -2,6 +2,7 @@ package com.zele.crspringboot.controllers;
 
 import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
+import com.zele.crspringboot.dtos.course.CourseViewDTO;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
 import com.zele.crspringboot.dtos.student.StudentViewDTO;
 import com.zele.crspringboot.service.StudentService;
@@ -51,5 +52,13 @@ public class StudentController {
             @RequestBody ResetPasswordRequest createRequest
     ) {
         return studentService.resetPassword(id, createRequest);
+    }
+
+    @PostMapping("/{id}-add-course")
+    public ResponseEntity<CourseViewDTO> registerCourse(
+            @RequestParam String courseName,
+            @PathVariable Long id
+    ) {
+        return studentService.registerCourse(courseName, id);
     }
 }
