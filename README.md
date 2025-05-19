@@ -42,7 +42,7 @@ The SpringBoot version of a previous project: [CRJava](https://github.com/ZeleOe
 - Application
   - port : `8080`
 - API Endpoints
-  - I'll add an API Endpoint file to `src/main/resources` laterrrr
+  - You can find the API Endpoints at [API-DOC](API-DOC.md).
 
 ## Tests
 
