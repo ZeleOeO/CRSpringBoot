@@ -1,10 +1,12 @@
 package com.zele.crspringboot.entities;
 
+import com.zele.crspringboot.tools.IDGenerator;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -16,7 +18,6 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String courseName;
     private int capacity;
     private int level;
@@ -40,8 +41,10 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
-    
-    public void setCourseName() {
-        this.courseName = this.courseName + String.valueOf(level).charAt(0) + "0" + String.valueOf(this.id);;
+
+    public void setCourseCode() {
+        this.courseName = this.courseName + String.valueOf(this.level).charAt(0) + "0" + IDGenerator.generateCourseID();;
+        System.out.println(this.courseName);
+        System.out.println(this.level);
     }
 }
