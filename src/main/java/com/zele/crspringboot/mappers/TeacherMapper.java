@@ -1,0 +1,18 @@
+package com.zele.crspringboot.mappers;
+
+import com.zele.crspringboot.dtos.student.UserViewDTO;
+import com.zele.crspringboot.entities.Teacher;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TeacherMapper {
+    public UserViewDTO toUserViewDTO(Teacher teacher) {
+        UserViewDTO userViewDTO = new UserViewDTO();
+        userViewDTO.setId(teacher.getId());
+        userViewDTO.setFirstName(teacher.getFirstName());
+        userViewDTO.setLastName(teacher.getLastName());
+        userViewDTO.setEmail(teacher.getEmail());
+        return userViewDTO;
+    }
+//    public Teacher
+}
