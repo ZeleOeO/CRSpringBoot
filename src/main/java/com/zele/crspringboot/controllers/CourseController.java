@@ -27,16 +27,4 @@ public class CourseController {
     public ResponseEntity<CourseViewDTO> getCourseById(@PathVariable Long id) {
         return courseService.getCourseById(id);
     }
-
-    @PostMapping("/new")
-    public ResponseEntity<CourseViewDTO> addCourse(
-            @RequestBody CourseCreateRequest createRequest
-            ) {
-        return courseService.createCourse(createRequest);
-    }
-
-    @DeleteMapping("/{id}-delete")
-    public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
-        return courseService.deleteCourseById(id);
-    }
 }

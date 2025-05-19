@@ -34,18 +34,5 @@ public class CourseService {
         return ResponseEntity.status(HttpStatus.OK).body(courseMapper.courseViewDTO(course));
     }
 
-    public ResponseEntity<CourseViewDTO> createCourse(CourseCreateRequest createRequest) {
-        Course course = courseMapper.createCourseByRequest(createRequest);
-        if (courseRepository.existsByCourseName(course.getCourseName())) throw new EntityAlreadyExistsException("Course already exists");
-        courseRepository.save(course);
-        return ResponseEntity.status(HttpStatus.CREATED).body(courseMapper.courseViewDTO(course));
-    }
-
-    public ResponseEntity<Void> deleteCourseById(Long id) {
-        var course = courseRepository.findById(id).orElse(null);
-        if (course == null) throw new EntityNotFoundException("Course not found");
-        courseRepository.delete(course);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 
 }
