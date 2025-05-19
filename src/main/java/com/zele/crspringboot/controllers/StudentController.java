@@ -22,7 +22,7 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/all/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<StudentViewDTO> getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id);
     }
