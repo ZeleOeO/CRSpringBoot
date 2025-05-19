@@ -59,6 +59,6 @@ public class StudentController {
             @RequestParam String courseName,
             @PathVariable Long id
     ) {
-        return studentService.registerCourse(courseName, id);
+        return studentService.enrollCourse(courseName, id);
     }
 }

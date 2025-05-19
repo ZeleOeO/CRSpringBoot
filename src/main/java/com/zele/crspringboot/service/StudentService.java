@@ -9,7 +9,6 @@ import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
 import com.zele.crspringboot.exceptions.EntityNotAuthorizedException;
 import com.zele.crspringboot.exceptions.EntityNotFoundException;
-import com.zele.crspringboot.exceptions.course.CourseAlreadyEnrolledByUserException;
 import com.zele.crspringboot.mappers.CourseMapper;
 import com.zele.crspringboot.mappers.StudentMapper;
 import com.zele.crspringboot.repositories.CourseRepository;
@@ -80,7 +79,7 @@ public class StudentService {
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
     }
 
-    public ResponseEntity<CourseViewDTO> registerCourse(String courseName, Long Id) {
+    public ResponseEntity<CourseViewDTO> enrollCourse(String courseName, Long Id) {
         var user = studentRepository.findById(Id).orElse(null);
         var course = courseRepository.findByCourseName(courseName);
         if (user == null) throw new EntityNotFoundException("Student not found");
