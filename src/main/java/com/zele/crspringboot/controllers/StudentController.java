@@ -3,7 +3,7 @@ package com.zele.crspringboot.controllers;
 import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
 import com.zele.crspringboot.dtos.course.CourseViewDTO;
-import com.zele.crspringboot.dtos.student.StudentCreateRequest;
+import com.zele.crspringboot.dtos.student.UserCreateRequest;
 import com.zele.crspringboot.dtos.student.UserViewDTO;
 import com.zele.crspringboot.service.StudentService;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class StudentController {
 
     @PostMapping("/new")
     public ResponseEntity<UserViewDTO> addStudent(
-            @RequestBody StudentCreateRequest createRequest) {
+            @RequestBody UserCreateRequest createRequest) {
         return studentService.studentSignUp(createRequest);
     }
 

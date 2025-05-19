@@ -1,7 +1,9 @@
 package com.zele.crspringboot.mappers;
 
+import com.zele.crspringboot.dtos.student.UserCreateRequest;
 import com.zele.crspringboot.dtos.student.UserViewDTO;
 import com.zele.crspringboot.entities.Teacher;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,5 +16,12 @@ public class TeacherMapper {
         userViewDTO.setEmail(teacher.getEmail());
         return userViewDTO;
     }
-//    public Teacher
+
+    public Teacher createRequestToStudent(UserCreateRequest userCreateRequest) {
+       Teacher teacher = new Teacher();
+       teacher.setFirstName(userCreateRequest.getFirstName());
+       teacher.setLastName(userCreateRequest.getLastName());
+       teacher.setEmail(userCreateRequest.getEmail());
+       return teacher;
+    }
 }

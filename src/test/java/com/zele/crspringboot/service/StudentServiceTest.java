@@ -89,7 +89,7 @@ class StudentServiceTest {
 
     @Test
     void testCreateStudent_Success() {
-        StudentCreateRequest request = new StudentCreateRequest();
+        UserCreateRequest request = new UserCreateRequest();
         Student student = new Student();
         student.setEmail("test@test.com");
 
@@ -103,7 +103,7 @@ class StudentServiceTest {
 
     @Test
     void testCreateStudent_AlreadyExists() {
-        StudentCreateRequest request = new StudentCreateRequest();
+        UserCreateRequest request = new UserCreateRequest();
         Student student = new Student();
         student.setEmail("test@test.com");
 

@@ -3,7 +3,7 @@ package com.zele.crspringboot.service;
 import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
 import com.zele.crspringboot.dtos.course.CourseViewDTO;
-import com.zele.crspringboot.dtos.student.StudentCreateRequest;
+import com.zele.crspringboot.dtos.student.UserCreateRequest;
 import com.zele.crspringboot.dtos.student.UserViewDTO;
 import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
@@ -48,8 +48,8 @@ public class StudentService {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    public ResponseEntity<UserViewDTO> studentSignUp(StudentCreateRequest studentCreateRequest) {
-        Student student = studentMapper.createRequestToStudent(studentCreateRequest);
+    public ResponseEntity<UserViewDTO> studentSignUp(UserCreateRequest userCreateRequest) {
+        Student student = studentMapper.createRequestToStudent(userCreateRequest);
         if (studentRepository.findByEmail(student.getEmail()) != null) throw new EntityAlreadyExistsException("Student already exists");
         studentRepository.save(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(student));

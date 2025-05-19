@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StudentCreateRequest {
+public class UserCreateRequest {
     private String firstName;
     private String lastName;
     private String email;
