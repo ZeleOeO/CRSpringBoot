@@ -30,7 +30,7 @@ public class StudentController {
     @PostMapping("/new")
     public ResponseEntity<StudentViewDTO> addStudent(
             @RequestBody StudentCreateRequest createRequest) {
-        return studentService.createStudent(createRequest);
+        return studentService.studentSignUp(createRequest);
     }
 
     @DeleteMapping("/{id}-delete")
