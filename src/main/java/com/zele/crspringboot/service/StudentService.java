@@ -43,7 +43,7 @@ public class StudentService {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    public ResponseEntity<StudentViewDTO> createStudent(StudentCreateRequest studentCreateRequest) {
+    public ResponseEntity<StudentViewDTO> studentSignUp(StudentCreateRequest studentCreateRequest) {
         Student student = studentMapper.createRequestToStudent(studentCreateRequest);
         if (studentRepository.findByEmail(student.getEmail()) != null) throw new EntityAlreadyExistsException("Student already exists");
         studentRepository.save(student);
