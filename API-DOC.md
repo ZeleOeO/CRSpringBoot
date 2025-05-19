@@ -109,8 +109,13 @@ _No body for this request._
 ---
 
 ### ENROLL A Course
-#### `POST` | `http://localhost:8080/students/4-add-course?courseName=CSC201`
+#### `POST` | `http://localhost:8080/students/{id}-add-course?courseName=CSC201`
 
 _No body for this request._
 
 ---
+
+### DROP A Course
+#### `DELETE` | `http://localhost:8080/students/{id}-drop-course?courseName=CSC201`
+
+_No body for this request._
