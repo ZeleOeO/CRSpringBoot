@@ -67,45 +67,6 @@ _No body for this request._
 }
 ```
 
-## Course Endpoint
-
----
-
-### GET All Courses
-#### `GET` | `http://localhost:8080/course/all`
-
-_No body for this request._
-
----
-
-### GET Course By Id
-#### `GET` | `http://localhost:8080/course/{id}`
-
-_No body for this request._
-
----
-
-### CREATE A New Course
-#### `POST` | `http://localhost:8080/course/new`
-
-**Body Type:** `application/json`
-
-**Example Request Body:**
-```json
-{
-  "courseName": "CSC",
-  "capacity":2,
-  "level": 200
-}
-```
-
----
-
-### DELETE A Course
-#### `DELETE` | `http://localhost:8080/course/{id}-delete`
-
-_No body for this request._
-
 ---
 
 ### ENROLL A Course
@@ -135,6 +96,24 @@ _No body for this request._
 
 ---
 
+## Course Endpoint
+
+---
+
+### GET All Courses
+#### `GET` | `http://localhost:8080/course/all`
+
+_No body for this request._
+
+---
+
+### GET Course By Id
+#### `GET` | `http://localhost:8080/course/{id}`
+
+_No body for this request._
+
+---
+
 ## Teacher Endpoint
 
 ---
@@ -147,3 +126,25 @@ _No body for this request._
 ### GET Teacher By Id
 #### `GET` | `http://localhost:8080/teacher/{id}`
 _No body for this request._
+
+---
+### CREATE A New Course
+#### `POST` | `http://localhost:8080/teacher/{id}-new-course`
+
+**Body Type:** `application/json`
+
+**Example Request Body:**
+```json
+{
+  "courseName": "CSC",
+  "capacity":2,
+  "level": 200
+}
+```
+---
+
+### DROP A Course
+#### `DELETE` | `http://localhost:8080/teacher/{id}-course-delete`
+
+_No body for this request._
+
