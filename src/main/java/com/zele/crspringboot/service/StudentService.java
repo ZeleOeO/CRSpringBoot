@@ -2,13 +2,17 @@ package com.zele.crspringboot.service;
 
 import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.AddPasswordRequest;
+import com.zele.crspringboot.dtos.course.CourseViewDTO;
 import com.zele.crspringboot.dtos.student.StudentCreateRequest;
 import com.zele.crspringboot.dtos.student.StudentViewDTO;
 import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
 import com.zele.crspringboot.exceptions.EntityNotAuthorizedException;
 import com.zele.crspringboot.exceptions.EntityNotFoundException;
+import com.zele.crspringboot.exceptions.course.CourseAlreadyEnrolledByUserException;
+import com.zele.crspringboot.mappers.CourseMapper;
 import com.zele.crspringboot.mappers.StudentMapper;
+import com.zele.crspringboot.repositories.CourseRepository;
 import com.zele.crspringboot.repositories.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,8 @@ import java.util.List;
 public class StudentService {
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
+    private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
 
     public List<StudentViewDTO> getAllStudents() {
         return studentRepository.findAll()
@@ -72,5 +78,17 @@ public class StudentService {
         user.setPassword(resetPasswordRequest.getNewPassword());
         studentRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
+    }
+
+    public ResponseEntity<CourseViewDTO> registerCourse(String courseName, Long Id) {
+        var user = studentRepository.findById(Id).orElse(null);
+        var course = courseRepository.findByCourseName(courseName);
+        if (user == null) throw new EntityNotFoundException("Student not found");
+        if (course == null) throw new EntityNotFoundException("Course not found");
+        if (course.getEnrolledStudents().contains(user)) throw new EntityAlreadyExistsException("Course already exists");
+        course.getEnrolledStudents().add(user);
+        studentRepository.save(user);
+        courseRepository.save(course);
+        return ResponseEntity.status(HttpStatus.OK).body(courseMapper.courseViewDTO(course));
     }
 }

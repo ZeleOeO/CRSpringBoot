@@ -7,7 +7,9 @@ import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
 import com.zele.crspringboot.exceptions.EntityNotAuthorizedException;
 import com.zele.crspringboot.exceptions.EntityNotFoundException;
+import com.zele.crspringboot.mappers.CourseMapper;
 import com.zele.crspringboot.mappers.StudentMapper;
+import com.zele.crspringboot.repositories.CourseRepository;
 import com.zele.crspringboot.repositories.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +24,17 @@ class StudentServiceTest {
 
     private StudentRepository studentRepository;
     private StudentMapper studentMapper;
+    private CourseRepository courseRepository;
+    private CourseMapper courseMapper;
     private StudentService studentService;
 
     @BeforeEach
     void setUp() {
         studentRepository = mock(StudentRepository.class);
         studentMapper = mock(StudentMapper.class);
-        studentService = new StudentService(studentRepository, studentMapper);
+        courseRepository = mock(CourseRepository.class);
+        courseMapper = mock(CourseMapper.class);
+        studentService = new StudentService(studentRepository, studentMapper, courseRepository, courseMapper);
     }
 
     @Test
@@ -91,7 +97,7 @@ class StudentServiceTest {
         when(studentRepository.findByEmail("test@test.com")).thenReturn(null);
         when(studentMapper.toStudentViewDTO(student)).thenReturn(new StudentViewDTO());
 
-        var response = studentService.createStudent(request);
+        var response = studentService.studentSignUp(request);
         assertEquals(201, response.getStatusCodeValue());
     }
 
@@ -104,7 +110,7 @@ class StudentServiceTest {
         when(studentMapper.createRequestToStudent(request)).thenReturn(student);
         when(studentRepository.findByEmail("test@test.com")).thenReturn(student);
 
-        assertThrows(EntityAlreadyExistsException.class, () -> studentService.createStudent(request));
+        assertThrows(EntityAlreadyExistsException.class, () -> studentService.studentSignUp(request));
     }
 
     @Test

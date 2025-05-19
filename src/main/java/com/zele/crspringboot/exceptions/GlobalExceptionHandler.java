@@ -1,5 +1,6 @@
 package com.zele.crspringboot.exceptions;
 
+import com.zele.crspringboot.exceptions.course.CourseAlreadyEnrolledByUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,5 +22,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotAuthorizedException.class)
     public ResponseEntity<String> handleEntityNotAuthorized(EntityNotAuthorizedException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(CourseAlreadyEnrolledByUserException.class)
+    public ResponseEntity<String> handleCourseAlreadyEnrolledByUser(CourseAlreadyEnrolledByUserException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 }

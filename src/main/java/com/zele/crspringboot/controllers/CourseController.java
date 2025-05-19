@@ -3,6 +3,7 @@ package com.zele.crspringboot.controllers;
 import com.zele.crspringboot.dtos.course.CourseCreateRequest;
 import com.zele.crspringboot.dtos.course.CourseViewDTO;
 import com.zele.crspringboot.service.CourseService;
+import com.zele.crspringboot.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CourseController {
         return courseService.createCourse(createRequest);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}-delete")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         return courseService.deleteCourseById(id);
     }

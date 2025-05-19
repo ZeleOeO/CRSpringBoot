@@ -1,23 +1,27 @@
 package com.zele.crspringboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zele.crspringboot.tools.IDGenerator;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Random;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"expectedStudents", "enrolledStudents"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "course")
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
+
     private String courseName;
     private int capacity;
     private int level;
@@ -28,6 +32,7 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonIgnore
     private Set<Student> expectedStudents;
 
     @ManyToMany
@@ -36,6 +41,7 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonIgnore
     private Set<Student> enrolledStudents;
 
     @ManyToOne
@@ -43,8 +49,6 @@ public class Course {
     private Teacher teacher;
 
     public void setCourseCode() {
-        this.courseName = this.courseName + String.valueOf(this.level).charAt(0) + "0" + IDGenerator.generateCourseID();;
-        System.out.println(this.courseName);
-        System.out.println(this.level);
+        this.courseName = this.courseName + String.valueOf(this.level).charAt(0) + "0" + IDGenerator.generateCourseID();
     }
 }
