@@ -1,5 +1,7 @@
 package com.zele.crspringboot.service;
 
+import com.zele.crspringboot.dtos.AddPasswordRequest;
+import com.zele.crspringboot.dtos.ResetPasswordRequest;
 import com.zele.crspringboot.dtos.student.*;
 import com.zele.crspringboot.entities.Student;
 import com.zele.crspringboot.exceptions.EntityAlreadyExistsException;
@@ -9,7 +11,6 @@ import com.zele.crspringboot.mappers.StudentMapper;
 import com.zele.crspringboot.repositories.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 import java.util.Optional;
@@ -112,7 +113,7 @@ class StudentServiceTest {
         student.setId(1L);
         student.setPassword(null);
 
-        StudentAddPasswordRequest request = new StudentAddPasswordRequest("pass123", "pass123");
+        AddPasswordRequest request = new AddPasswordRequest("pass123", "pass123");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
         when(studentMapper.toStudentViewDTO(student)).thenReturn(new StudentViewDTO());
@@ -128,7 +129,7 @@ class StudentServiceTest {
         student.setId(1L);
         student.setPassword("alreadySet");
 
-        StudentAddPasswordRequest request = new StudentAddPasswordRequest("pass123", "pass123");
+        AddPasswordRequest request = new AddPasswordRequest("pass123", "pass123");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 
@@ -141,7 +142,7 @@ class StudentServiceTest {
         student.setId(1L);
         student.setPassword(null);
 
-        StudentAddPasswordRequest request = new StudentAddPasswordRequest("pass123", "wrong");
+        AddPasswordRequest request = new AddPasswordRequest("pass123", "wrong");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 

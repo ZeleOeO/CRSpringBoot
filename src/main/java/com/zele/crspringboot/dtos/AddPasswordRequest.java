@@ -1,4 +1,4 @@
-package com.zele.crspringboot.dtos.student;
+package com.zele.crspringboot.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,12 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResetPasswordRequest {
-    private String oldPassword;
-    private String newPassword;
-    private String confirmNewPassword;
-
-    public boolean validate() {
-        return newPassword.equals(confirmNewPassword);
-    }
+public class AddPasswordRequest {
+    private String password;
+    private String confirmPassword;
 }
