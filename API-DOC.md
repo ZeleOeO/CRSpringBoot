@@ -129,7 +129,7 @@ _No body for this request._
 
 ---
 ### CREATE A New Course
-#### `POST` | `http://localhost:8080/teacher/{id}-new-course`
+#### `POST` | `http://localhost:8080/teacher/{id}-course-new`
 
 **Body Type:** `application/json`
 
@@ -144,7 +144,7 @@ _No body for this request._
 ---
 
 ### DROP A Course
-#### `DELETE` | `http://localhost:8080/teacher/{id}-course-delete`
+#### `DELETE` | `http://localhost:8080/teacher/{teacherId}-course-delete/{courseId}`
 
 _No body for this request._
 
