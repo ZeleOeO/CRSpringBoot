@@ -102,4 +102,22 @@ public class StudentService {
         courseRepository.save(course);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    public List<CourseViewDTO> getAllEnrolledCourses(Long id) {
+        var user = studentRepository.findById(id).orElse(null);
+        if (user == null) throw new EntityNotFoundException("Student not found");
+        return user.getCoursesEnrolled().
+                stream()
+                .map(courseMapper::courseViewDTO)
+                .toList();
+    }
+
+    public List<CourseViewDTO> getAllExpectedCourses(Long id) {
+        var user = studentRepository.findById(id).orElse(null);
+        if (user == null) throw new EntityNotFoundException("Student not found");
+        return user.getCoursesExpectedToBeEnrolled().
+                stream()
+                .map(courseMapper::courseViewDTO)
+                .toList();
+    }
 }

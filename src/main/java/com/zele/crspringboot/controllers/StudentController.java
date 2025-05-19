@@ -69,4 +69,14 @@ public class StudentController {
     ) {
         return studentService.dropCourse(courseName, id);
     }
+
+    @GetMapping("/{id}-all-enrolled-courses")
+    public List<CourseViewDTO> getAllEnrolledCourses(@PathVariable Long id) {
+        return studentService.getAllEnrolledCourses(id);
+    }
+
+    @GetMapping("/{id}-all-expected-courses")
+    public List<CourseViewDTO> getAllExpectedCourses(@PathVariable Long id) {
+        return studentService.getAllExpectedCourses(id);
+    }
 }
