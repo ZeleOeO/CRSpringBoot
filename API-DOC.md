@@ -67,7 +67,7 @@ _No body for this request._
 }
 ```
 
-## Courses EndPoint
+## Course Endpoint
 
 ---
 
@@ -102,7 +102,14 @@ _No body for this request._
 ---
 
 ### DELETE A Course
-#### `DELETE` | `http://localhost:8080/course/{id}`
+#### `DELETE` | `http://localhost:8080/course/{id}-delete`
+
+_No body for this request._
+
+---
+
+### ENROLL A Course
+#### `POST` | `http://localhost:8080/students/4-add-course?courseName=CSC201`
 
 _No body for this request._
 
