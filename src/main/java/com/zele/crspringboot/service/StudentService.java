@@ -63,12 +63,12 @@ public class StudentService {
     public ResponseEntity<StudentViewDTO> resetPassword(Long Id, ResetPasswordRequest resetPasswordRequest) {
         var user = studentRepository.findById(Id).orElse(null);
         if (user == null) throw new EntityNotFoundException("Student not found");
+        if (user.getPassword() == null) {
+            addPassword(new AddPasswordRequest(resetPasswordRequest.getNewPassword(), resetPasswordRequest.getConfirmNewPassword()), user.getId());
+            return ResponseEntity.status(HttpStatus.OK).body(studentMapper.toStudentViewDTO(user));
+        }
         if (!resetPasswordRequest.validate()) throw new EntityNotAuthorizedException("Passwords do not match");
         if (!resetPasswordRequest.getOldPassword().equals(user.getPassword())) throw new EntityNotAuthorizedException("Passwords do not match");
-        if (user.getPassword() == null) addPassword(
-                new AddPasswordRequest(resetPasswordRequest.getNewPassword(), resetPasswordRequest.getConfirmNewPassword()),
-                user.getId()
-        );
         user.setPassword(resetPasswordRequest.getNewPassword());
         studentRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(studentMapper.toStudentViewDTO(user));
