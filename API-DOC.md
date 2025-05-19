@@ -119,3 +119,14 @@ _No body for this request._
 #### `DELETE` | `http://localhost:8080/students/{id}-drop-course?courseName=CSC201`
 
 _No body for this request._
+
+
+### GET All Enrolled Courses
+#### `GET` | `http://localhost:8080/students/{id}-all-enrolled-courses`
+
+_No body for this request._
+
+### GET All Expected Courses
+#### `GET` | `http://localhost:8080/students/{id}-all-expected-courses`
+
+_No body for this request._
