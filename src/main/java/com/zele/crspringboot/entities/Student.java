@@ -26,11 +26,11 @@ public class Student {
     private String email;
     private String password;
 
-    @ManyToMany(mappedBy = "expectedStudents")
+    @ManyToMany(mappedBy = "enrolledStudents")
     @JsonIgnore
     private Set<Course> coursesEnrolled = new HashSet<>();
 
-    @ManyToMany(mappedBy = "enrolledStudents")
+    @ManyToMany(mappedBy = "expectedStudents")
     @JsonIgnore
     private Set<Course> coursesExpectedToBeEnrolled = new HashSet<>();
 }
