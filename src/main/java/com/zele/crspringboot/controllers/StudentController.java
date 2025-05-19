@@ -61,4 +61,12 @@ public class StudentController {
     ) {
         return studentService.enrollCourse(courseName, id);
     }
+
+    @DeleteMapping("/{id}-drop-course")
+    public ResponseEntity<Void> dropCourse(
+            @PathVariable Long id,
+            @RequestParam String courseName
+    ) {
+        return studentService.dropCourse(courseName, id);
+    }
 }

@@ -90,4 +90,16 @@ public class StudentService {
         courseRepository.save(course);
         return ResponseEntity.status(HttpStatus.OK).body(courseMapper.courseViewDTO(course));
     }
+
+    public ResponseEntity<Void> dropCourse(String courseName, Long Id) {
+        var user = studentRepository.findById(Id).orElse(null);
+        var course = courseRepository.findByCourseName(courseName);
+        if (user == null) throw new EntityNotFoundException("Student not found");
+        if (course == null) throw new EntityNotFoundException("Course not found");
+        if (!user.getCoursesEnrolled().contains(course)) throw new EntityNotAuthorizedException("Course not enrolled");
+        course.getEnrolledStudents().remove(user);
+        studentRepository.save(user);
+        courseRepository.save(course);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
