@@ -69,7 +69,8 @@ Contributions are more than welcome, I'm still working on it though, so... keep 
 
 ### _**TODO**_ 
 
--[ ] Teacher and Student share the same auth service 
+- [ ] Teacher and Student share the same auth service 
+- [ ] Optimize Exception Handling
 
 
 ## License
