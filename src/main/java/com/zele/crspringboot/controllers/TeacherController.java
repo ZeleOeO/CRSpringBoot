@@ -10,6 +10,7 @@ import com.zele.crspringboot.service.TeacherService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -70,4 +71,14 @@ public class TeacherController {
    ) {
         return teacherService.dropCourse(courseId, teacherId);
    }
+
+   @PostMapping("/{teacherId}-course-add-expected-students/{courseId}")
+    public ResponseEntity<String> addExpectedStudent(
+            @PathVariable Long teacherId,
+            @PathVariable Long courseId,
+            @RequestParam("file") MultipartFile file
+   ) {
+        return teacherService.addExpectedStudentToCourse(courseId, teacherId, file);
+   }
+
 }
