@@ -28,4 +28,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCourseAlreadyEnrolledByUser(CourseAlreadyEnrolledByUserException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(FileReadErrorException.class)
+    public ResponseEntity<String> handleFileReadError(FileReadErrorException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
