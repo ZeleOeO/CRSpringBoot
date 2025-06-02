@@ -1,9 +1,31 @@
 services:
-  postgres:
-    image: 'postgres:latest'
+  db:
+    image: postgres:latest
     environment:
-      - 'POSTGRES_DB=CRSpring'
-      - 'POSTGRES_PASSWORD=password'
-      - 'POSTGRES_USER=zele'
+      POSTGRES_DB: crspring-db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ozonichi/crsping:1.0
+    container_name: crspring-app
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: crspring-db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+volumes:
+  pgdata:
